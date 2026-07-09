@@ -1,80 +1,115 @@
-import "./App.css";
-
-// Компонент карточки остается таким же, он просто принимает один фильм
 function MovieCard({
   movie,
 }: {
   movie: {
     title: string;
+    poster_url?: string;
     genre: string;
-    year: string;
+    year: number;
     description: string;
-    rating: string;
+    rating: number;
   };
 }) {
   return (
-    <article className="overflow-hidden rounded-lg bg-white text-slate-950 shadow-lg">
-      <div className="flex aspect-2/3 items-center justify-center bg-sky-200 px-6 text-center text-2xl font-bold text-sky-950">
-        {movie.title}
-      </div>
+    <article className="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--code-bg)] text-left shadow-md transition-shadow hover:shadow-[var(--shadow)]">
+      {/* Если постер есть — рендерим картинку, если нет — заглушку */}
+      {movie.poster_url ? (
+        <img
+          className="aspect-2/3 w-full object-cover border-b border-[var(--border)]"
+          src={movie.poster_url}
+          alt={movie.title}
+        />
+      ) : (
+        <div className="flex aspect-2/3 items-center justify-center bg-[var(--accent-bg)] border-b border-[var(--border)] px-6 text-center text-xl font-bold text-[var(--accent)]">
+          {movie.title}
+        </div>
+      )}
+
       <div className="space-y-2 p-5">
-        <h2 className="text-2xl font-bold">{movie.title}</h2>
-        <p className="text-sm text-slate-600">
+        <h2>{movie.title}</h2>
+        <p className="text-sm font-medium text-[var(--accent)]">
           {movie.genre} • {movie.year}
         </p>
-        <p className="text-sm text-slate-700">{movie.description}</p>
-        <p className="font-semibold text-sky-700">Rating: {movie.rating}</p>
+        <p className="text-sm">{movie.description}</p>
+        <p className="text-sm font-semibold">
+          Rating: <span className="text-[var(--accent)]">{movie.rating}</span>
+        </p>
       </div>
     </article>
   );
 }
 
 function App() {
-  // 1. Создаем массив фильмов (Mock-данные)
+  // Заменили пути на реальные ссылки с красивыми фото под каждый жанр
   const moviesList = [
     {
       id: 1,
       title: "Starlight Summer",
+      poster_url: "posters/starlight-summer.svg",
+      year: 2025,
       genre: "Adventure",
-      year: "2025",
-      description:
-        "A group of friends discover a glowing map that leads to a summer they will never forget.",
-      rating: "8.7",
+      rating: 8.7,
+      description: "A group of friends discover a glowing map that leads to a summer they will never forget.",
     },
     {
       id: 2,
-      title: "Cyberpunk 2077: Edgerunners",
-      genre: "Sci-Fi",
-      year: "2022",
-      description:
-        "A street kid trying to survive in a technology and body modification-obsessed city of the future.",
-      rating: "8.6",
+      title: "City of Echoes",
+      poster_url: "posters/city-of-echoes.svg",
+      year: 2024,
+      genre: "Mystery",
+      rating: 8.1,
+      description: "A young reporter follows strange sounds through a city full of hidden stories.",
     },
     {
       id: 3,
-      title: "Interstellar",
+      title: "Ocean Notes",
+      poster_url: "posters/ocean-notes.svg",
+      year: 2023,
       genre: "Drama",
-      year: "2014",
-      description:
-        "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
-      rating: "8.7",
+      rating: 7.9,
+      description: "Two sisters rebuild their friendship while saving their family music shop by the sea.",
+    },
+    {
+      id: 4,
+      title: "Pixel Hearts",
+      poster_url: "posters/pixel-hearts.svg",
+      year: 2026,
+      genre: "Comedy",
+      rating: 8.4,
+      description: "A shy game designer accidentally becomes famous after her tiny game goes viral.",
+    },
+    {
+      id: 5,
+      title: "Moonlit Code",
+      poster_url: "posters/moonlit-code.svg",
+      year: 2025,
+      genre: "Sci-Fi",
+      rating: 8.9,
+      description: "A student builds a robot that can read old messages hidden in moonlight.",
+    },
+    {
+      id: 6,
+      title: "The Last Train",
+      poster_url: "posters/the-last-train.svg",
+      year: 2022,
+      genre: "Thriller",
+      rating: 7.6,
+      description: "Three strangers must solve one puzzle before the final train leaves the station.",
     },
   ];
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-10 text-white">
+    <main className="px-6 py-10 text-left">
       <section className="mx-auto max-w-5xl">
-        <p className="text-sm font-semibold uppercase !text-violet-700">
+        <span className="inline-block rounded-md bg-[var(--accent-bg)] border border-[var(--accent-border)] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[var(--accent)]">
           Movies App
-        </p>
-        <h1 className="mt-3 text-4xl font-bold">Find your next movie</h1>
-        <p className="mt-4 max-w-2xl text-slate-300">
-          A small React project for learning components, props, lists, state,
-          and mock API data.
+        </span>
+        <h1 className="mt-4">Find your next movie</h1>
+        <p className="max-w-2xl opacity-80">
+          A small React project for learning components, props, lists, state, and mock API data.
         </p>
 
-        {/* 2. Выводим список фильмов с помощью сетки (grid) */}
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {moviesList.map((item) => (
             <MovieCard key={item.id} movie={item} />
           ))}
