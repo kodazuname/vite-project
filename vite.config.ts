@@ -5,9 +5,14 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // 1. Базовый путь для GitHub Pages (должен быть на самом верхнем уровне)
+  base: '/vite-project/', 
+  
   plugins: [
     react(),
-    babel({ presets: [reactCompilerPreset()] }),
+    babel({ 
+      presets: [reactCompilerPreset()] 
+    }),
     tailwindcss()
   ],
 })
