@@ -90,7 +90,7 @@ function App() {
     {
       id: 6,
       title: "The Last Train",
-      poster_url: "posters/the-last-train.svg",
+      poster_url: "posters/Screenshot 2026-07-10 at 10.33.12.png",
       year: 2022,
       genre: "Thriller",
       rating: 7.6,
